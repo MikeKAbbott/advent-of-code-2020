@@ -1,35 +1,33 @@
 import csv
-import time
 
-data = []
-with open('data.csv',newline='') as csvfile:
-    pointer = csv.reader(csvfile,delimiter = ' ',)
-    for i in pointer:
-        data.append(int(i[0]))
+class Vacation:
+    def __init__(self, data):
+        self.file = data
+        self.data = self.parseData()
+
+        print(self.vacation1())
+        print(self.vacation2())
+
+    def parseData(self):
+        data = []
+        with open(self.file, newline='') as csvfile:
+            pointer = csv.reader(csvfile,delimiter = ' ',)
+            for i in pointer:
+                data.append(int(i[0]))
+        return data
     
-def vacation1():
-    for i in data:
-        for j in data:
-            if i + j == 2020:
-                print(i*j)
-                return
+    def vacation1(self):
+        for i in self.data:
+            for j in self.data:
+                if i + j == 2020:
+                    return i * j
+
+    def vacation2(self):
+        for i in self.data:
+            if 2020 - i in self.data:
+                jindex = self.data.index(2020 - i)
+                return i * self.data[jindex]
 
 
-start = time.time()
-vacation1()
-end = time.time()
-print("first: ", end - start)
-
-
-
-def vacation2(numbers):
-    for i in numbers:
-        if 2020 - i in numbers:
-            jindex = numbers.index(2020 - i)
-            print(i * numbers[jindex])
-            return
-
-start = time.time()
-vacation2(data)
-end = time.time()
-print("second: ", end - start)
+if __name__ == "__main__":
+    vacation = Vacation("data.csv")
