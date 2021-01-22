@@ -1,27 +1,63 @@
 import re
-pointer = open("test.txt",'r')
-data = [[i for i in re.split(" |\n",x)] for x in pointer]
 
-c = 0
-for i in data:
-    if "" in i:
-        i.remove("")
+class gameLoop:
 
-n = 0
-while n < len(data):
-    print("loop start",c)
-    if "nop" in data[n]:
-        print("no operation")
-        n += 1
-    if "acc" in data[n]:
-        if data[n][1][0] == '+':
-            c += int(data[n][1][1:])
-        else:
-            c -= int(data[n][1][1:])
-        n += 1
+    def __init__(self,file):
+        self.file = file
+        self.data = self.parseData()
+        self.count = self.accumulate()
+        print(self.count)
+    
+    def parseData(self):
+        pointer = open(self.file,'r')
+        parsed = [[i for i in re.split(" |\n",x) if i != ''] for x in pointer]
+        data = []
+        for i in parsed:
+            data.append(node(i[0],i[1]))
+        return data
+        
+    def accumulate(self):
+        c = 0
+        n = 0
+        while n <= len(self.data):
+            temp = n
+            if self.data[temp].isVisted():
+                return c
+            
+            elif "nop" == self.data[temp].name:
+                n += 1
+            elif "acc" == self.data[temp].name:
+                if self.data[temp].number[0] == '+':
+                    c += int(self.data[temp].number[1:])
+                else:
+                    c -= int(self.data[temp].number[1:])
+                n += 1
+            else:
+                if self.data[n].number[0] == '+':
+                    n += int(self.data[temp].number[1:])
+                else:
+                    n -= int(self.data[temp].number[1:])
+        
+            self.data[temp].visitNode()
 
-    if "jmp" in data[n]:
-        if data[n][1][0] == '+':
-            n += int(data[n][1][1:])
-        else:
-            n -= int(data[n][1][1:])
+
+class node:
+
+    def __init__(self, name, number):
+        self.visited = False
+        self.name = name
+        self.number = number
+
+    def visitNode(self):
+        self.visited = True
+    
+    def isVisted(self):
+        return self.visited
+
+
+if __name__ == "__main__":
+    loop = gameLoop("data.txt")
+
+
+
+
