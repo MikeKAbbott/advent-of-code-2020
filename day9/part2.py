@@ -54,7 +54,7 @@ class funNumbers:
         index = data.index(self.number)
         if sum(self.range) > self.number:
             self.clear()
-            data.remove(self.data[0])
+            data.pop(0)
         else:
             for i in range(0, index - 1):
                 if data[i] < self.number:
