@@ -33,7 +33,7 @@ class gameLoop:
                     c -= int(self.data[temp].number[1:])
                 n += 1
             else:
-                if self.data[n].number[0] == '+':
+                if self.data[temp].number[0] == '+':
                     n += int(self.data[temp].number[1:])
                 else:
                     n -= int(self.data[temp].number[1:])
@@ -56,7 +56,7 @@ class node:
 
 
 if __name__ == "__main__":
-    loop = gameLoop("data.txt")
+    loop = gameLoop("test.txt")
 
 
 
