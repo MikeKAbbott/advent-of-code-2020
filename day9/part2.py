@@ -16,6 +16,12 @@ class funNumbers:
         return [int(i.strip("\n")) for i in pointer]
 
     """
+    Helper function that resets the range array
+    """
+    def clear(self):
+        self.range = []
+
+    """
     Helper function that adds an item to the
     preamble array
     """
@@ -47,18 +53,16 @@ class funNumbers:
     def getRange(self,data):
         index = data.index(self.number)
         if sum(self.range) > self.number:
-            self.range = []
+            self.clear()
             data.remove(self.data[0])
-        
         else:
             for i in range(0, index - 1):
-                
                 if data[i] < self.number:
-                    self.range.append(data[i])
-                    
-                    if sum(self.range) == self.number:
-                        print(min(self.range) + max(self.range))
-                        return min(self.range) + max(self.range)
+                    self.range.append(data[i])   
+
+                if sum(self.range) == self.number:
+                    print(min(self.range) + max(self.range))
+                    return min(self.range) + max(self.range)
         
         self.getRange(data)
 
